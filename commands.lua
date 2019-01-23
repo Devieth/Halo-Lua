@@ -1,5 +1,6 @@
 
 -- Commands by Devieth.
+-- Script for SAPP
 api_version = "1.10.0.0"
 
 -- Vanished player list
