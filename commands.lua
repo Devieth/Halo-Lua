@@ -91,6 +91,10 @@ function command_respawn_time(TargetIndex, UserIndex, Time)
 	return "Error: No player specified."
 end
 
+function get_name(PlayerIndex)
+	return get_var(PlayerIndex, "$name")
+end
+
 function get_valid_player(Player, UserIndex)
 	local PlayerIndex = nil
 	if Player ~= nil then
@@ -124,4 +128,16 @@ function process_command(Command)
 		return string.sub(Command, 3, string.len(Command)), 0
 	end
 	return Command, 1
+end
+
+function tokenizestring(inputstr, sep)
+	if sep == nil then
+		sep = "%s"
+	end
+	local t={} ; i=1
+	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+		t[i] = str
+		i = i + 1
+	end
+	return t
 end
