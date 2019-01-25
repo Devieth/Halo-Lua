@@ -80,9 +80,9 @@ end
 
 function get_vehicle_type(m_vehicle)
 	local ID = read_dword(m_vehicle)
-    local tagarray = read_dword(0x40440000)
-    for i=0,read_word(0x4044000C)-1 do
-        local tag = tagarray + i * 0x20
+	local tagarray = read_dword(0x40440000)
+	for i=0,read_word(0x4044000C)-1 do
+		local tag = tagarray + i * 0x20
 		local tagid = read_dword(tag + 0xC)
 		if ID == tagid then
 			local tag_path = read_string(read_dword(tag + 0x10))
@@ -93,8 +93,8 @@ function get_vehicle_type(m_vehicle)
 				end
 			end
 			break
-        end
-    end
+		end
+	end
 	return vehi_type
 end
 
