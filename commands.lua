@@ -16,6 +16,8 @@ end
 function OnScriptUnload() end -- We need this cause SAPP.
 
 function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
+	-- Make 'Message' a local and default it to false to prevent blocking other commands.
+	local Message = false 
 	-- Tokenize the string (and remove quotations.)
 	local t = tokenizestring(string.lower(string.gsub(Command, '"', "")), " ")
 	-- Get command mode (enable or disable.)
