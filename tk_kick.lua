@@ -16,7 +16,7 @@ function OnScriptLoad()
 end
 
 function OnChat(PlayerIndex, Message)
-	local allo = true
+	local allow = true
 	if string.lower(Message) == "/tk_kick" then
 		if last_tk_er ~= nil then
 			if get_team(last_tk_er) == get_team(PlayerIndex) then
