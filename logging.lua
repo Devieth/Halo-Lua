@@ -1,7 +1,6 @@
 
--- Server Logging Script.
--- For SAPP 10+
--- By: Devieth
+-- Server logging script by Devieth.
+-- For SAPP
 
 --[[ Save format:
 ProfilePlath >
