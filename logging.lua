@@ -70,6 +70,8 @@ function get_player_data(PlayerIndex)
 	return name, ip, hash
 end
 
+-- Use this function to grab the connection IP.
+-- Do this because get_var(PlayerIndex, "$ip") gets the last "known" ip that held that PlayerIndex.
 function get_ip(PlayerIndex)
 	local m_connection_info = read_dword(read_dword(read_dword(get_client_machine_info(PlayerIndex))))
 	local ip = {}
@@ -90,11 +92,14 @@ end
 
 function file_write(Filename, SubPath, String, Mode)
 	Mode = Mode or "a+"
+	-- Make sure the save directory exits and return the path, if not create it and return the path.
 	local file_path = directory_exists(save_location..SubPath.."\\")
-	local file = io.open(file_path .. Filename, Mode)
-	if file then
-		file:write(String.."\n")
-		file:close()
+	if file_path ~= false then
+		local file = io.open(file_path .. Filename, Mode)
+		if file then
+			file:write(String.."\n")
+			file:close()
+		end
 	end
 end
 
