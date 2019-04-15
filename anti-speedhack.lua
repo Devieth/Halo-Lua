@@ -9,7 +9,7 @@ past_update = {}
 
 function OnScriptLoad()
 	register_callback(cb['EVENT_TICK'], "OnEventTick")
-	timer(5000, "check_violations")
+	timer(5000, "reset_violations")
 end
 
 function OnScriptUnload() end
@@ -37,7 +37,7 @@ function OnEventTick()
 	end
 end
 
-function check_violations()
+function reset_violations()
 	update_violation_count = {}
 	return true
 end
