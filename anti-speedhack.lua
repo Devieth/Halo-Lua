@@ -25,6 +25,7 @@ function OnEventTick()
 					if update_violation_count[i] then
 						update_violation_count[i] = update_violation_count[i] + 1
 						if update_violation_count[i] >= 5 then
+							update_violation_count[i] = 0
 							execute_command(mode.." "..i.. " Speedhack")
 						end
 					else
