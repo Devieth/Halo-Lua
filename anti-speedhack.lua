@@ -38,6 +38,7 @@ function OnEventTick()
 	end
 end
 
+-- Reset violations in the case of errors caused by lag.
 function reset_violations()
 	update_violation_count = {}
 	return true
