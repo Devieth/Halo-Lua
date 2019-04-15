@@ -21,7 +21,7 @@ function OnEventTick()
 			local update = read_word(m_player + 0xF4)
 			if past_update[i] then
 				local difference = update - past_update[i]
-				if difference > 1 and difference < 4 then
+				if difference == 2 then
 					if update_violation_count[i] then
 						update_violation_count[i] = update_violation_count[i] + 1
 						if update_violation_count[i] >= 5 then
