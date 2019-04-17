@@ -37,11 +37,11 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 				local downloaded, map_name = false, tostring(t[2])
 
 				-- Download the map.
-				local map = assert(io.popen('wget -c '..map_repo.."map_download.php?map="..map_name))
+				local map = assert(io.popen('wget -O "'..map_name..'" -c '..map_repo.."map_download.php?map="..map_name))
 				map:close()
 
 				-- Check if the download was successful.
-				local file = io.open(map_name..".zip")
+				local file = io.open(map_name)
 				if file then
 					downloaded = true
 					file:close()
@@ -49,7 +49,7 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 
 				if downloaded then
 					-- Unzip the map.
-					local sevenz = assert(io.popen('7z.exe e '..map_name..'.zip -o'..maps_folder_path))
+					local sevenz = assert(io.popen('7z.exe e "'..map_name..'" -o'..maps_folder_path))
 					sevenz:close()
 
 					-- Load the map.
@@ -57,7 +57,7 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 					rcon_return(tonumber(Enviroment), PlayerIndex, "Download of "..map_name.. " complete!")
 
 					-- Delete the .zip file.
-					os.remove(map_name..".zip")
+					os.remove(map_name)
 				else
 
 					-- Alert the usere that the download failed.
