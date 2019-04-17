@@ -21,7 +21,7 @@ function OnScriptUnload() end
 -- 1 = RCON Console
 -- 2 = Chat
 function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
-	local t = tokenizestring(string.lower(string.gsub(Command, [["]], "")), " ")
+	local t = tokenizestring(string.gsub(Command, [["]], ""), " ")
 	if get_var(PlayerIndex, "$lvl") ~= "-1" or tonumber(Enviroment) == 0 then
 
 		-- Hi-Jack SAPP's command.
