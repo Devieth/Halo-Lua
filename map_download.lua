@@ -65,13 +65,65 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 					rcon_return(tonumber(Enviroment), PlayerIndex, "Check the spelling of the map.")
 					rcon_return(tonumber(Enviroment), PlayerIndex, "Check the repo for the map @ http://maps.halonet.net/maplist.php")
 				end
-				return false
 			else
-
 				-- Let them know how to use the hi-jacked command.
 				rcon_return(tonumber(Enviroment), PlayerIndex, "map_download <map name>")
-				return false
 			end
+			return false
+		elseif t[1] == "map_download.map" then
+			if t[2] then
+				if t[3] then
+					local downloaded, URL, map_name = false, tostring(t[2]), tostring(t[3])
+
+					-- Download the map.
+					local map = assert(io.popen('wget -c '..URL..' -O '..maps_folder_path..map_name))
+					map:close()
+
+					--Load the map
+					execute_command("map_load "..map_name)
+				else
+					rcon_return(tonumber(Enviroment), PlayerIndex, "Please include the full map and file name. EX: cmt_snow_grove.map")
+				end
+			else
+				rcon_return(tonumber(Enviroment), PlayerIndex, "map_download.map <URL> <map_name.map>")
+			end
+			return false
+		elseif t[1] == "map_download.zip" then
+			if t[2] then
+				if t[3] then
+					local downloaded, URL, map_name = false, tostring(t[2]), tostring(t[3])
+
+					-- Download the map.
+					local map = assert(io.popen('wget -O "'..map_name..'" -c '..URL))
+					map:close()
+
+					-- Check if the download was successful.
+					local file = io.open(map_name)
+					if file then
+						downloaded = true
+						file:close()
+					end
+
+					if downloaded then
+						-- Unzip the map.
+						local sevenz = assert(io.popen('7z.exe e "'..map_name..'" -o'..maps_folder_path))
+						sevenz:close()
+						-- Load the map.
+						execute_command("map_load "..map_name)
+						rcon_return(tonumber(Enviroment), PlayerIndex, "Download of "..map_name.." complete!")
+						-- Delete the .zip file.
+						os.remove(map_name)
+					else
+						-- Alert the usere that the download failed.
+						rcon_return(tonumber(Enviroment), PlayerIndex, "Download failed.")
+					end
+				else
+					rcon_return(tonumber(Enviroment), PlayerIndex, "Map name required! Ex: garden_ce")
+				end
+			else
+				rcon_return(tonumber(Enviroment), PlayerIndex, "map_download.zip <URL> <map_name>")
+			end
+			return false
 		elseif t[1] == "repo" then
 			if t[2] then
 				if t[2] == "legacy" then
@@ -83,6 +135,7 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 			else
 				rcon_return(tonumber(Enviroment), PlayerIndex, "Current Map Repo: "..repo)
 			end
+			return false
 		end
 	end
 end
