@@ -8,7 +8,6 @@ update_violation_count = {}
 past_update = {}
 
 function OnScriptLoad()
-	execute_command("speed_hack_detection 0")
 	register_callback(cb['EVENT_TICK'], "OnEventTick")
 end
 
