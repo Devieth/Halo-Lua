@@ -8,8 +8,8 @@ update_violation_count = {}
 past_update = {}
 
 function OnScriptLoad()
+	execute_command("speed_hack_detection 0")
 	register_callback(cb['EVENT_TICK'], "OnEventTick")
-	timer(5000, "reset_violations")
 end
 
 function OnScriptUnload() end
@@ -21,15 +21,22 @@ function OnEventTick()
 			local update = read_word(m_player + 0xF4)
 			if past_update[i] then
 				local difference = update - past_update[i]
-				if difference == 2 then
-					if update_violation_count[i] then
+				if difference >= 2 then
+					if update_violation_count[i] ~= nil then
 						update_violation_count[i] = update_violation_count[i] + 1
-						if update_violation_count[i] >= 5 then
-							update_violation_count[i] = 0
+						if update_violation_count[i] > 10 then
 							execute_command(mode.." "..i.. " Speedhack")
+							update_violation_count[i] = 0
 						end
 					else
 						update_violation_count[i] = 1
+					end
+				end
+			end
+			if update_violation_count[i] ~= nil then
+				if update_violation_count[i] > 0 then
+					if update == 63 then
+						update_violation_count[i] = update_violation_count[i] - 2
 					end
 				end
 			end
@@ -37,10 +44,3 @@ function OnEventTick()
 		end
 	end
 end
-
--- Reset violations in the case of errors caused by lag.
-function reset_violations()
-	update_violation_count = {}
-	return true
-end
-
