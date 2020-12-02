@@ -1,6 +1,5 @@
 
 -- TK_Kick by Devieth
--- Script for SAPP
 api_version = "1.10.0.0"
 
 -- Amount of team kills (betrays) needed to get the option to kick a player.
@@ -16,7 +15,7 @@ function OnScriptLoad()
 end
 
 function OnChat(PlayerIndex, Message)
-	local allow = true
+	local allo = true
 	if string.lower(Message) == "/tk_kick" then
 		if last_tk_er ~= nil then
 			if get_team(last_tk_er) == get_team(PlayerIndex) then
