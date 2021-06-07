@@ -53,7 +53,7 @@ function download_file(url, path, filename, powershell)
 	if powershell then
 		os.execute("powershell (New-Object System.Net.WebClient).DownloadFile('"..url.."','"..path..filename.."')")
 	else
-		local file = assert(io.popen('wget -O "'..filename..'" -c '..url))
+		local file = assert(io.popen('wget -O "'..filename..'" -c "'..url..'"'))
 		file:close()
 		local file = io.open(path..filename)
 		if file then
@@ -110,7 +110,7 @@ function OnEventCommand(PlayerIndex, Command, Enviroment, Password)
 				rcon_return(tonumber(Enviroment), PlayerIndex, script.."WARNING: Server may lag or disconnect durring download!")
 				local downloaded = download_file(hac2_repo..'map_download.php?map='..map_name, exe_folder_path, map_name..'.zip')
 				if downloaded then
-					local unzip = assert(io.popen('unzip '..map_name..' -d '..maps_folder_path))
+					local unzip = assert(io.popen('unzip '..map_name..' -d "'..maps_folder_path..'"'))
 					unzip:close()
 					-- Check to make sure the file was unziped.
 					local file = io.open(maps_folder_path..map_name..'.map')
