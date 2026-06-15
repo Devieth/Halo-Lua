@@ -1,6 +1,11 @@
 # Halo-Lua
 Lua scripts for Halo for SAPP or Chimera.
 
+# HAC2 Pack
+- bandacoot.zip
+
+Makes you get Crash Bandicoot sound effects for hit-sounds and kills.
+
 # SAPP Scripts
 - anti-cram.lua
 
